@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useChat } from 'ai/react';
+import Markdown from 'react-markdown';
 
 export default function Chat() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading } =
@@ -32,7 +33,10 @@ export default function Chat() {
 					onSubmit={handleSubmit}>
 					<Input
 						className="border-0 flex-1"
-						placeholder="Wie kann Bloq-ee dir helfen?"
+						placeholder={
+							isLoading ? 'Bloq-ee antwortet…' : 'Wie kann Bloq-ee dir helfen?'
+						}
+						disabled={isLoading}
 						type="text"
 						value={input}
 						onChange={handleInputChange}
@@ -62,9 +66,9 @@ function Message({ role, message }: { role: 'bot' | 'user'; message: string }) {
 					/>
 				</div>
 			</div>
-			<div className="rounded-lg rounded-bl-none bg-secondary p-2 text-sm max-w-[75%]">
+			<Markdown className="rounded-lg rounded-bl-none bg-secondary p-2 text-sm max-w-[75%] prose">
 				{message}
-			</div>
+			</Markdown>
 		</div>
 	);
 }

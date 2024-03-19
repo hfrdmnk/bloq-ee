@@ -27,7 +27,8 @@ export const initialMessages = [
 	},
 	{
 		role: 'system',
-		content: 'Zum Format: Deine Antworten sind immer in Markdown Syntax.',
+		content:
+			'Zum Format: Deine Antworten sind immer in Markdown Syntax. Besonders wichtig: Links müssen klickbar sein. Ausserdem solltest du regelmässig neue Paragraphen machen um die Lesbarkeit zu erhöhen.',
 	},
 	{
 		role: 'assistant',
