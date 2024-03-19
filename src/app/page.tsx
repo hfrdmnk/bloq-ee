@@ -5,28 +5,42 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import { useChat } from 'ai/react';
 
-export default function Home() {
+export default function Chat() {
+	const { messages, input, handleInputChange, handleSubmit, isLoading } =
+		useChat();
+
 	return (
 		<main className="flex h-screen justify-center items-stretch flex-co p-4">
 			<div className="flex flex-col w-full max-w-[40rem] border rounded-lg">
 				<ScrollContainer>
 					<Message
-						role={'bot'}
-						message={"Hey! I'm Bloq-ee. How can I help you today?"}
+						role="bot"
+						message="Hey, ich bin Bloq-ee! Wie kann ich dir bei deiner (zukünftigen) Website helfen?"
 					/>
-					<Message role={'user'} message={'I want a new website.'} />
+					{messages.map((m) => (
+						<Message
+							key={m.id}
+							role={m.role === 'user' ? 'user' : 'bot'}
+							message={m.content}
+						/>
+					))}
 				</ScrollContainer>
-				<div className="flex items-center p-2 border-t">
+				<form
+					className="flex items-center p-2 border-t"
+					onSubmit={handleSubmit}>
 					<Input
 						className="border-0 flex-1"
-						placeholder="Type a message"
+						placeholder="Wie kann Bloq-ee dir helfen?"
 						type="text"
+						value={input}
+						onChange={handleInputChange}
 					/>
-					<Button className="ml-2" type="submit">
+					<Button className="ml-2" type="submit" disabled={isLoading}>
 						Send
 					</Button>
-				</div>
+				</form>
 			</div>
 		</main>
 	);
