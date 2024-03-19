@@ -9,7 +9,7 @@ const openai = new OpenAI({
 // Set the runtime to edge for best performance
 export const runtime = 'edge';
 
-export const initialMessages = [
+const initialMessages = [
 	{
 		role: 'system',
 		content:
